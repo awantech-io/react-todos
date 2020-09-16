@@ -13,7 +13,7 @@ class App extends Component {
       {
         id:2,
         title: 'dinner with wife',
-        completed:true
+        completed:false
       },  
       {
         id:3,
@@ -23,6 +23,7 @@ class App extends Component {
     ]
   }
 
+  // Toggle checked Todos
   markComplete = (id) => {
     this.setState({ todos: this.state.todos.map(todo => {
       if (todo.id === id ){
@@ -32,15 +33,21 @@ class App extends Component {
     })})
   }
 
+  // Delete Todos
+  deltodo = (id) => {
+    // grab all todp objec in array, then return all that not match with the given id
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]});
+  }
+
   render () {
     
     return (
       <div>
-        <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+        <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.deltodo}/>
       </div>
     );
   }
 }
 
-export default App;
+export default App; 
 
