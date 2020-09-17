@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
 import Todos from './components/Todos';
+import Header from './layout/Header';
+import AddTodo from './components/AddTodo';
+import { v4 as uuidv4 } from 'uuid';
+
+
 
 class App extends Component {
   state = {
     todos:[
       {
-        id:1,
+        id:uuidv4(),
         title: 'take out Thrash',
         completed:false
       },
       {
-        id:2,
+        id:uuidv4(),
         title: 'dinner with wife',
         completed:false
       },  
       {
-        id:3,
+        id:uuidv4(),
         title: 'meeting with client',
         completed:false
       }
@@ -38,12 +43,26 @@ class App extends Component {
     // grab all todp objec in array, then return all that not match with the given id
     this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]});
   }
+ 
+  // Add Todo method
+  addTodo = (title) => {
+    const newTodo = {
+      id:uuidv4(),
+      title,
+      completed:false
+    }
+    this.setState({ todos: [...this.state.todos, newTodo]});
+  } 
 
   render () {
     
     return (
-      <div>
+      <div className="App">
+        <div className="container">
+        <Header />
+        <AddTodo addTodo={this.addTodo}/>
         <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.deltodo}/>
+      </div>
       </div>
     );
   }
